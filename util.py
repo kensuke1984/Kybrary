@@ -1,4 +1,4 @@
-# v0.0.1 utilities
+# v0.0.2 utilities
 from pathlib import Path
 
 
@@ -11,7 +11,6 @@ def event_folders(path) -> set:
     :type path: str or Path
     :rtype: set (Path)
     """
-    from pathlib import Path
     import re
     root = path if isinstance(path, Path) else Path(str(path))
     if not root.exists():
@@ -27,9 +26,10 @@ class SACFileName:
     def __init__(self, path: Path):
         self.__path = path
         self.name = path.name
-        self.station = path.name.split('.')[0]
-        self.event_id = path.name.split('.')[1]
-        self.extension = path.name.split('.')[-1]
+        parts = path.name.split('.')
+        self.station = parts[0]
+        self.event_id = parts[1]
+        self.extension = parts[-1]
 
     def get_path(self):
         return self.__path
