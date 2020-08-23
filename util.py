@@ -1,5 +1,10 @@
-# v0.0.2 utilities
+# v0.0.3 utilities
 from pathlib import Path
+
+
+def m0_to_mw(m0: float):
+    from math import log10
+    return round((log10(m0) - 9.1) / 1.5, 1)
 
 
 def event_folders(path) -> set:

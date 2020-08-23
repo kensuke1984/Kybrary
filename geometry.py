@@ -1,4 +1,4 @@
-# v0.0.1
+# v0.0.2
 import math
 
 EARTH_RADIUS = 6371
@@ -53,11 +53,17 @@ class HorizontalPosition:
     def epicentral_distance(self, pos):
         return epicentral_distance(self, pos)
 
+    def __str__(self):
+        return str(self.latitude.geographic) + ' ' + str(self.longitude.longitude)
+
 
 class Location(HorizontalPosition):
     def __init__(self, latitude: float, longitude: float, radius: float):
         super().__init__(latitude, longitude)
         self.radius = radius
+
+    def __str__(self):
+        return super().__str__() + ' ' + str(self.radius)
 
 
 class Latitude:
