@@ -1,10 +1,20 @@
-# v0.0.1
-from datetime import datetime
+# v0.0.2
+from datetime import datetime, timedelta
+
+from obspy import Trace
 
 import environment
 from geometry import Location
 
 catalog_path = environment.kibrary_home.joinpath('share', 'globalcmt.catalog')
+
+
+def search(condition):
+    rndks = []
+    for ndk in ndks:
+        if condition(ndk):
+            rndks.append(ndk)
+    return rndks
 
 
 def of(gcmtid: str):
@@ -15,6 +25,13 @@ def of(gcmtid: str):
 
 
 class NDK:
+
+    def addinfo_to(self, tr: Trace):
+        header = tr.stats.sac
+        header['evla'] = self.centroid_location.latitude.geographic
+        header['evlo'] = self.centroid_location.longitude.longitude
+        header['kevnm'] = self.id
+        return tr
 
     def __init__(self, lines):
         from util import m0_to_mw
@@ -63,6 +80,8 @@ class NDK:
         self.centroid_location = Location(float(parts[3]), float(parts[5]), 6371 - float(parts[7]))
         self.depth_type = parts[9]
         self.time_stamp = parts[10]
+
+        self.centroid_time = self.reference_date_time + timedelta(seconds=self.time_difference)
 
         # line 3
         parts = lines[3].split()
