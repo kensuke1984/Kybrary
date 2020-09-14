@@ -1,4 +1,4 @@
-# v0.0.2
+# v0.0.3
 from datetime import datetime, timedelta
 
 from obspy import Trace
@@ -143,7 +143,7 @@ def _get_catalog():
 def _download_catalog():
     import urllib.request
     import tempfile
-    catalog_url = 'https://bit.ly/3bdGQji'
+    catalog_url = 'https://bit.ly/3bl0Ly9'
     temp_file = tempfile.mkstemp(suffix='.cat')
     urllib.request.urlretrieve(catalog_url, temp_file[1])
     return temp_file[1]
